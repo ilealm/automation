@@ -13,27 +13,26 @@ def read_file(path_file_to_read):
     except:
         print('Error on reading the file.')
 
-def get_valid_phone_numbers(content):
+def is_valid_phone_number(sequence):
   # (\d{10})$)|(^(\d{6}-\d{4})$)|(^\d{3}[\s-]\d{3}[\s-]\d{4}$)|(^\d{3}[\s-]\d{7}$)|(^\(\d{3}\)\s?\d{3}[\s-]\d{4}
   # this is mine
   """
   Regex obtained from : # http://regexlib.com/Search.aspx?k=phone
-    # pattern = r"^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$"
-    pattern = r"(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?"
+    
   """
   pattern = r'\b([A-Za-z0-9])*.?([A-Za-z0-9]+)@([A-Za-z0-9])*.((com)|(net)|(org))'
-  return  re.findall(r'[\w\.-]+@[\w\.-]+', content)
+  if re.match(pattern, sequence):
+    return True
+  else: 
+    return False
 
 
 def is_valid_email(sequence):
-  # re.search(r'([\w\.-]+)@([\w\.-]+)'
   pattern = r'([\w\.-]+)@([\w\.-]+)'
   if re.match(pattern, sequence):
     return True
   else: 
     return False
-  
-
 
 
 
@@ -42,21 +41,34 @@ def extract_information():
     phones_list = []
     path_file_to_read = "assets/potential-contacts.txt"    
     
-    # content = read_file(path_file_to_read)
-    content_list = read_file(path_file_to_read).split()
+    content = read_file(path_file_to_read)
+    # content_list = read_file(path_file_to_read).split()
+    content_list = content.split()
     
     for word in content_list:
-        print(word)
+        # print(word)
         if is_valid_email(word) : email_list.append(word)
-
-    print(email_list)
     
-    # emails = get_valid_emails(content)
-    # print(emails)
-    # print(emails[1])
-    # print(emails[2])
-    
+    get_phones(content)
+        # if is_valid_phone_number(word) :  
+        #   pass
+            # TODO: remove trash
+            # phones_list.append(word)
+            # print(word)
 
+    # print(email_list)
+    # print()
+    
+    
+def get_phones(content):
+    # pattern = r''
+    # pattern = r''
+    # pattern = r''
+    # pattern = r''
+    # pattern = r'\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})' #only get secuencial numbers
+    pattern = r'[2-9]\d{2}-\d{3}-\d{4}'
+    results = re.findall(pattern, content)
+    print(results)
 
 
 if __name__ == "__main__":  
