@@ -7,6 +7,7 @@ def read_file(path_file_to_read):
         return contents
     except:
         print('Error on reading the file.')
+        
 
 def is_valid_email(sequence):
   pattern = r'([\w\.-]+)@([\w\.-]+)'
@@ -18,9 +19,11 @@ def is_valid_email(sequence):
     
 def get_phones(content):
     """
-    Regex: JB Tellez. I Updated "-" to [-.]
+    Regex: https://stackoverflow.com/questions/3868753/find-phone-numbers-in-python-script
+    pattern = r'(\d{3}[-\.\s]\d{3}[-\.\s]\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]\d{4}|\d{3}[-\.\s]\d{4})'
     """
-    pattern = r'[2-9]\d{2}[-.]\d{3}[-.]\d{4}'  # THIS WORKS FOR ddd-ddd-dddd. UNITE THE LAST 2 !
+   
+    pattern = r'(\d{3}[-\.\s]\d{3}[-\.\s]\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]\d{4}|\d{3}[-\.\s]\d{4})'
     return  re.findall(pattern, content) 
 
 
@@ -31,12 +34,14 @@ def save_email_list(e_mail_list):
         for element in e_mail_list:
             f.write(element + '\n')
 
+
 def save_phone_list(phones_list):
     path_to_save = 'phone_numbers.txt'
 
     with open(path_to_save, "w+") as f:
         for element in phones_list:
             f.write(element + '\n') 
+
 
 
 def process_information():
