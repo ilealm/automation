@@ -61,13 +61,13 @@ def extract_information():
     
     
 def get_phones(content):
-    # pattern = r''
-    # pattern = r''
-    # pattern = r''
-    # pattern = r''
-    # pattern = r'\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})' #only get secuencial numbers
-    pattern = r'[2-9]\d{2}-\d{3}-\d{4}'
-    results = re.findall(pattern, content)
+    # pattern = r'\d{3}\.\d{3}.\d{4}'  # working !!!, but the other get more this gets the ones with .
+    # pattern = r'[2-9]\d{2}-\d{3}-\d{4}'  # THIS WORKS FOR ddd-ddd-dddd. bur the other get more this gets the ones with ..
+    pattern = r'[2-9]\d{2}[-.]\d{3}[-.]\d{4}'  # THIS WORKS FOR ddd-ddd-dddd. UNITE THE LAST 2 !
+    
+    
+    
+    results = re.findall(pattern, content) 
     print(results)
 
 
